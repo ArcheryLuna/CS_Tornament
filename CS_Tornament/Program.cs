@@ -1,3 +1,5 @@
+using dotenv.net;
+
 namespace CS_Tornament
 {
     internal static class Program

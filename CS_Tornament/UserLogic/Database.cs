@@ -10,10 +10,10 @@ namespace CS_Tornament.UserLogic
 {
     internal class Database
     {
-        private static string DatabaseServer = "node1.colmena.co.uk";
-        private static string DatabaseUser = "u3_zGY7jF6RGM";
-        private static string DatabasePassword = "Zu.Z^BX2USyYObL.b+7db8^i";
-        private static string DatabaseName = "s3_unit-4-learning-aim-b-c";
+        private static string DatabaseServer = "localhost";
+        private static string DatabaseUser = "root";
+        private static string DatabasePassword = "root";
+        private static string DatabaseName = "development-torn";
             
         private static string ConnectionString = $"server={DatabaseServer};user={DatabaseUser};password={DatabasePassword};database={DatabaseName};";
         private static MySqlConnection Connection = new MySqlConnection(ConnectionString);

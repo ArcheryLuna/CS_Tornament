@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using dotenv.net;
+using System.Windows.Forms.VisualStyles;
 
 namespace CS_Tornament.UserLogic
 {
     internal class Database
     {
-        private static string DatabaseServer = "node1.colmena.co.uk";
-        private static string DatabaseUser = "u3_zGY7jF6RGM";
-        private static string DatabasePassword = "Zu.Z^BX2USyYObL.b+7db8^i";
-        private static string DatabaseName = "s3_unit-4-learning-aim-b-c";
-            
+        private static string DatabaseServer = Properties.Settings.Default.SQL_Server;
+        private static string DatabaseUser = Properties.Settings.Default.SQL_User;
+        private static string DatabasePassword = Properties.Settings.Default.SQL_Password;
+        private static string DatabaseName = Properties.Settings.Default.SQL_Name;
+
         private static string ConnectionString = $"server={DatabaseServer};user={DatabaseUser};password={DatabasePassword};database={DatabaseName};";
         private static MySqlConnection Connection = new MySqlConnection(ConnectionString);
         
@@ -35,13 +36,40 @@ namespace CS_Tornament.UserLogic
             Connection.Close();
         }
 
+        public static bool UserExists(string username, string hashedPassword)
+        {
+            try
+            {
+                Connect();
+
+                string query = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}' AND userPassword = '{hashedPassword}';";
+                MySqlCommand command = new MySqlCommand(query, Connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.HasRows) {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error SQL: " + e.Message);
+                return false;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
         public static string[] GetUser(string username)
         {
             try
             {
                 Connect();
 
-                string query = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
+                string query = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}';";
                 MySqlCommand command = new MySqlCommand(query, Connection);
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -50,18 +78,27 @@ namespace CS_Tornament.UserLogic
                     return new string[] { "User not found" };
                 }
 
+                int userId = 0;
+                string userName = "";
+                string userEmail = "";
+                string userPassword = "";
+
                 while (reader.Read())
                 {
-                    string userId = reader.GetString(0);
-                    string userName = reader.GetString(1);
-                    string userEmail = reader.GetString(2);
-                    string userPassword = reader.GetString(3);
+                    userId = reader.GetInt32(0);
+                    userName = reader.GetString(1);
+                    userEmail = reader.GetString(2);
+                    userPassword = reader.GetString(3);
 
-                    return new string[] { userId, userName, userEmail, userPassword };
+                    
                 }
 
-                // If execution reaches here, it means no records were found
-                return new string[] { "User not found" };
+                if ( userName =="" || userEmail =="" || userPassword =="")
+                {
+                    return new string[] { "User not found" };
+                }
+
+                return new string[] {userName, userEmail, userPassword };
             }
             catch (MySqlException e)
             {

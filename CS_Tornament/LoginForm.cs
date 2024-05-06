@@ -1,13 +1,23 @@
 using System.Collections.Generic;
+using System.Reflection;
 using CS_Tornament.UserLogic;
 
 namespace CS_Tornament
 {
     public partial class LoginForm : Form
     {
+        bool ShowPassword = false;
+        bool RememberMe = false;
+
+        Tornaments SelectionForm = new Tornaments();
         public LoginForm()
         {
             InitializeComponent();
+
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            
         }
 
         private void ResetSubmit_Click(object sender, EventArgs e)
@@ -53,28 +63,90 @@ namespace CS_Tornament
 
                 string[] User = Database.GetUser(username: Username);
 
-                MessageBox.Show(User[0].ToString());
-                MessageBox.Show(User[1].ToString());
-                MessageBox.Show(User[2].ToString());
-                MessageBox.Show(User[3].ToString());
+                bool PasswordVerification = Password.Verify(UnhashedPassword, User[2].ToString());
 
-                bool PasswordVerification = Password.Verify(UnhashedPassword, User[3].ToString());
-
-                if (PasswordVerification)
-                {
-                    LoginDialog = MessageBox.Show("Login Successful", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
+                if (!PasswordVerification)
                 {
                     LoginDialog = MessageBox.Show("Login Failed", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                LoginDialog = MessageBox.Show("Login Successful", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (RememberMe)
+                {
+                    Properties.Settings.Default.UserName = User[0];
+                    Properties.Settings.Default.UserPassword = User[2];
+                    Properties.Settings.Default.Save();
+                }
+
+                SelectionForm.Show();
+                this.Hide();
             }
             catch (Exception ex)
             {
                 LoginDialog = MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            
+
+        }
+
+        private void UsernameInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PasswordInput.Select();
+            }
+        }
+
+        private void PasswordInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                LoginSubmit_Click(sender, e);
+            }
+        }
+
+        private void ShowPasswordButton_Click(object sender, EventArgs e)
+        {
+            if (ShowPassword)
+            {
+                PasswordInput.PasswordChar = '*';
+                PasswordInput.UseSystemPasswordChar = true;
+                ShowPassword = false;
+            }
+            else
+            {
+                PasswordInput.PasswordChar = '\0';
+                PasswordInput.UseSystemPasswordChar = false;
+                ShowPassword = true;
+            }
+        }
+
+        private void RememberMeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            RememberMe = !RememberMe;
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.UserName != string.Empty)
+            {
+                string Username = Properties.Settings.Default.UserName;
+                string Password = Properties.Settings.Default.UserPassword;
+
+                bool UserExists = Database.UserExists(Username, Password);
+
+                if (UserExists)
+                {
+                    SelectionForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    Properties.Settings.Default.UserName = string.Empty;
+                    Properties.Settings.Default.UserPassword = string.Empty;
+                }
+            }
         }
     }
 }

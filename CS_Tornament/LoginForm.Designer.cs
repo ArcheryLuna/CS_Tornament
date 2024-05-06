@@ -36,14 +36,15 @@
             LoginSubmit = new Button();
             ResetSubmit = new Label();
             ExitSubmit = new Label();
-            RememberPasswordCheckBox = new CheckBox();
+            ShowPasswordButton = new Button();
+            RememberMeCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // LoginFormTitle
             // 
             LoginFormTitle.AutoSize = true;
             LoginFormTitle.Font = new Font("Roboto", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LoginFormTitle.Location = new Point(165, 9);
+            LoginFormTitle.Location = new Point(12, 9);
             LoginFormTitle.Name = "LoginFormTitle";
             LoginFormTitle.Size = new Size(147, 63);
             LoginFormTitle.TabIndex = 0;
@@ -51,26 +52,28 @@
             // 
             // UsernameInput
             // 
-            UsernameInput.Location = new Point(165, 132);
+            UsernameInput.Location = new Point(12, 132);
             UsernameInput.Name = "UsernameInput";
             UsernameInput.PlaceholderText = "Username";
             UsernameInput.Size = new Size(250, 23);
             UsernameInput.TabIndex = 1;
+            UsernameInput.KeyDown += UsernameInput_KeyDown;
             // 
             // PasswordInput
             // 
-            PasswordInput.Location = new Point(165, 181);
+            PasswordInput.Location = new Point(12, 181);
             PasswordInput.Name = "PasswordInput";
             PasswordInput.PasswordChar = '*';
             PasswordInput.PlaceholderText = "Password";
-            PasswordInput.Size = new Size(250, 23);
+            PasswordInput.Size = new Size(218, 23);
             PasswordInput.TabIndex = 2;
             PasswordInput.UseSystemPasswordChar = true;
+            PasswordInput.KeyDown += PasswordInput_KeyDown;
             // 
             // UsernameLabel
             // 
             UsernameLabel.AutoSize = true;
-            UsernameLabel.Location = new Point(165, 114);
+            UsernameLabel.Location = new Point(12, 114);
             UsernameLabel.Margin = new Padding(0);
             UsernameLabel.Name = "UsernameLabel";
             UsernameLabel.Size = new Size(60, 15);
@@ -80,7 +83,7 @@
             // PasswordLabel
             // 
             PasswordLabel.AutoSize = true;
-            PasswordLabel.Location = new Point(165, 163);
+            PasswordLabel.Location = new Point(12, 163);
             PasswordLabel.Margin = new Padding(0);
             PasswordLabel.Name = "PasswordLabel";
             PasswordLabel.Size = new Size(57, 15);
@@ -89,7 +92,7 @@
             // 
             // LoginSubmit
             // 
-            LoginSubmit.Location = new Point(166, 212);
+            LoginSubmit.Location = new Point(13, 212);
             LoginSubmit.Name = "LoginSubmit";
             LoginSubmit.Size = new Size(250, 29);
             LoginSubmit.TabIndex = 5;
@@ -100,7 +103,7 @@
             // ResetSubmit
             // 
             ResetSubmit.AutoSize = true;
-            ResetSubmit.Location = new Point(348, 243);
+            ResetSubmit.Location = new Point(195, 243);
             ResetSubmit.Name = "ResetSubmit";
             ResetSubmit.Size = new Size(35, 15);
             ResetSubmit.TabIndex = 6;
@@ -111,29 +114,41 @@
             // 
             ExitSubmit.AutoSize = true;
             ExitSubmit.ForeColor = Color.IndianRed;
-            ExitSubmit.Location = new Point(389, 243);
+            ExitSubmit.Location = new Point(236, 243);
             ExitSubmit.Name = "ExitSubmit";
             ExitSubmit.Size = new Size(26, 15);
             ExitSubmit.TabIndex = 7;
             ExitSubmit.Text = "Exit";
             ExitSubmit.Click += ExitSubmit_Click;
             // 
-            // RememberPasswordCheckBox
+            // ShowPasswordButton
             // 
-            RememberPasswordCheckBox.AutoSize = true;
-            RememberPasswordCheckBox.Location = new Point(165, 242);
-            RememberPasswordCheckBox.Name = "RememberPasswordCheckBox";
-            RememberPasswordCheckBox.Size = new Size(104, 19);
-            RememberPasswordCheckBox.TabIndex = 8;
-            RememberPasswordCheckBox.Text = "Remember Me";
-            RememberPasswordCheckBox.UseVisualStyleBackColor = true;
+            ShowPasswordButton.Location = new Point(236, 180);
+            ShowPasswordButton.Name = "ShowPasswordButton";
+            ShowPasswordButton.Size = new Size(23, 23);
+            ShowPasswordButton.TabIndex = 9;
+            ShowPasswordButton.Text = "👁️";
+            ShowPasswordButton.UseVisualStyleBackColor = true;
+            ShowPasswordButton.Click += ShowPasswordButton_Click;
+            // 
+            // RememberMeCheckBox
+            // 
+            RememberMeCheckBox.AutoSize = true;
+            RememberMeCheckBox.Location = new Point(13, 243);
+            RememberMeCheckBox.Name = "RememberMeCheckBox";
+            RememberMeCheckBox.Size = new Size(101, 19);
+            RememberMeCheckBox.TabIndex = 10;
+            RememberMeCheckBox.Text = "RememberMe";
+            RememberMeCheckBox.UseVisualStyleBackColor = true;
+            RememberMeCheckBox.CheckedChanged += RememberMeCheckBox_CheckedChanged;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(576, 555);
-            Controls.Add(RememberPasswordCheckBox);
+            ClientSize = new Size(278, 359);
+            Controls.Add(RememberMeCheckBox);
+            Controls.Add(ShowPasswordButton);
             Controls.Add(ExitSubmit);
             Controls.Add(ResetSubmit);
             Controls.Add(LoginSubmit);
@@ -142,8 +157,10 @@
             Controls.Add(PasswordInput);
             Controls.Add(UsernameInput);
             Controls.Add(LoginFormTitle);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "LoginForm";
             Text = "Login";
+            Load += LoginForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -158,6 +175,7 @@
         private Button LoginSubmit;
         private Label ResetSubmit;
         private Label ExitSubmit;
-        private CheckBox RememberPasswordCheckBox;
+        private Button ShowPasswordButton;
+        private CheckBox RememberMeCheckBox;
     }
 }

@@ -34,10 +34,10 @@
             UsernameLabel = new Label();
             PasswordLabel = new Label();
             LoginSubmit = new Button();
-            ResetSubmit = new Label();
-            ExitSubmit = new Label();
             ShowPasswordButton = new Button();
             RememberMeCheckBox = new CheckBox();
+            ResetLink = new LinkLabel();
+            ExitLink = new LinkLabel();
             SuspendLayout();
             // 
             // LoginFormTitle
@@ -100,27 +100,6 @@
             LoginSubmit.UseVisualStyleBackColor = true;
             LoginSubmit.Click += LoginSubmit_Click;
             // 
-            // ResetSubmit
-            // 
-            ResetSubmit.AutoSize = true;
-            ResetSubmit.Location = new Point(195, 243);
-            ResetSubmit.Name = "ResetSubmit";
-            ResetSubmit.Size = new Size(35, 15);
-            ResetSubmit.TabIndex = 6;
-            ResetSubmit.Text = "Reset";
-            ResetSubmit.Click += ResetSubmit_Click;
-            // 
-            // ExitSubmit
-            // 
-            ExitSubmit.AutoSize = true;
-            ExitSubmit.ForeColor = Color.IndianRed;
-            ExitSubmit.Location = new Point(236, 243);
-            ExitSubmit.Name = "ExitSubmit";
-            ExitSubmit.Size = new Size(26, 15);
-            ExitSubmit.TabIndex = 7;
-            ExitSubmit.Text = "Exit";
-            ExitSubmit.Click += ExitSubmit_Click;
-            // 
             // ShowPasswordButton
             // 
             ShowPasswordButton.Location = new Point(236, 180);
@@ -136,21 +115,47 @@
             RememberMeCheckBox.AutoSize = true;
             RememberMeCheckBox.Location = new Point(13, 243);
             RememberMeCheckBox.Name = "RememberMeCheckBox";
-            RememberMeCheckBox.Size = new Size(101, 19);
+            RememberMeCheckBox.Size = new Size(104, 19);
             RememberMeCheckBox.TabIndex = 10;
-            RememberMeCheckBox.Text = "RememberMe";
+            RememberMeCheckBox.Text = "Remember Me";
             RememberMeCheckBox.UseVisualStyleBackColor = true;
             RememberMeCheckBox.CheckedChanged += RememberMeCheckBox_CheckedChanged;
+            // 
+            // ResetLink
+            // 
+            ResetLink.AutoSize = true;
+            ResetLink.LinkColor = Color.Black;
+            ResetLink.Location = new Point(195, 244);
+            ResetLink.Name = "ResetLink";
+            ResetLink.Size = new Size(35, 15);
+            ResetLink.TabIndex = 11;
+            ResetLink.TabStop = true;
+            ResetLink.Text = "Reset";
+            ResetLink.VisitedLinkColor = Color.FromArgb(192, 192, 255);
+            ResetLink.Click += ResetSubmit_Click;
+            // 
+            // ExitLink
+            // 
+            ExitLink.AutoSize = true;
+            ExitLink.LinkColor = Color.IndianRed;
+            ExitLink.Location = new Point(233, 244);
+            ExitLink.Name = "ExitLink";
+            ExitLink.Size = new Size(26, 15);
+            ExitLink.TabIndex = 12;
+            ExitLink.TabStop = true;
+            ExitLink.Text = "Exit";
+            ExitLink.VisitedLinkColor = Color.FromArgb(192, 192, 255);
+            ExitLink.Click += ExitSubmit_Click;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(278, 359);
+            Controls.Add(ExitLink);
+            Controls.Add(ResetLink);
             Controls.Add(RememberMeCheckBox);
             Controls.Add(ShowPasswordButton);
-            Controls.Add(ExitSubmit);
-            Controls.Add(ResetSubmit);
             Controls.Add(LoginSubmit);
             Controls.Add(PasswordLabel);
             Controls.Add(UsernameLabel);
@@ -160,7 +165,6 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "LoginForm";
             Text = "Login";
-            Load += LoginForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -173,9 +177,9 @@
         private Label UsernameLabel;
         private Label PasswordLabel;
         private Button LoginSubmit;
-        private Label ResetSubmit;
-        private Label ExitSubmit;
         private Button ShowPasswordButton;
         private CheckBox RememberMeCheckBox;
+        private LinkLabel ResetLink;
+        private LinkLabel ExitLink;
     }
 }

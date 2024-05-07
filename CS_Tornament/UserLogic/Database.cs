@@ -42,7 +42,7 @@ namespace CS_Tornament.UserLogic
             {
                 Connect();
 
-                string query = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}' AND userPassword = '{hashedPassword}';";
+                string query = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}' AND userPassword = '{hashedPassword}'";
                 MySqlCommand command = new MySqlCommand(query, Connection);
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -69,7 +69,7 @@ namespace CS_Tornament.UserLogic
             {
                 Connect();
 
-                string query = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}';";
+                string query = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
                 MySqlCommand command = new MySqlCommand(query, Connection);
                 MySqlDataReader reader = command.ExecuteReader();
 

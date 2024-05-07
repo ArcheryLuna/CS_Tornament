@@ -15,7 +15,7 @@ namespace CS_Tornament
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            if (Properties.Settings.Default.UserName != string.Empty)
+            if (Properties.Settings.Default.UserPassword != string.Empty)
             {
                 string Username = Properties.Settings.Default.UserName;
                 string Password = Properties.Settings.Default.UserPassword;

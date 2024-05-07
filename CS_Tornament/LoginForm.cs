@@ -9,7 +9,7 @@ namespace CS_Tornament
         bool ShowPassword = false;
         bool RememberMe = false;
 
-        Tornaments SelectionForm = new Tornaments();
+        Tornaments TornamentForm = new Tornaments();
         public LoginForm()
         {
             InitializeComponent();
@@ -75,12 +75,22 @@ namespace CS_Tornament
                 if (RememberMe)
                 {
                     Properties.Settings.Default.UserName = User[0];
-                    Properties.Settings.Default.UserPassword = User[2];
+                    Properties.Settings.Default.UserPassword = User[2]; 
+                    Properties.Settings.Default.Save();   
+                    TornamentForm.Show();
+                    this.Hide();
+                } else
+                {
+                    Properties.Settings.Default.UserName = User[0];
+                    Properties.Settings.Default.UserPassword = "";
                     Properties.Settings.Default.Save();
+                    TornamentForm.Show();
+                    this.Hide();
                 }
+                
+                
 
-                SelectionForm.Show();
-                this.Hide();
+                
             }
             catch (Exception ex)
             {
@@ -125,28 +135,6 @@ namespace CS_Tornament
         private void RememberMeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             RememberMe = !RememberMe;
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.UserName != string.Empty)
-            {
-                string Username = Properties.Settings.Default.UserName;
-                string Password = Properties.Settings.Default.UserPassword;
-
-                bool UserExists = Database.UserExists(Username, Password);
-
-                if (UserExists)
-                {
-                    SelectionForm.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    Properties.Settings.Default.UserName = string.Empty;
-                    Properties.Settings.Default.UserPassword = string.Empty;
-                }
-            }
         }
     }
 }

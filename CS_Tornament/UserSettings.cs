@@ -52,7 +52,81 @@ namespace CS_Tornament
             if (ConfirmationDialog == DialogResult.Yes)
             {
                 // Close the current form without closing the other form that is open
-                this.Close();
+                new Tornaments().CloseUserSetting();
+            }
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            string NewUsername = UsernameTextBox.Text;
+            string NewEmail = UserEmailTextbox.Text;
+            string NewPassword = PasswordTextBox.Text;
+
+            DialogResult ConfirmationDialog;
+
+            if (NewUsername == "" && NewEmail == "" && NewPassword == "")
+            {
+                MessageBox.Show("Please fill in at least one field to update", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ConfirmationDialog = MessageBox.Show("Are you sure you want to update your information?", "Update Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (ConfirmationDialog == DialogResult.No)
+            {
+                return;
+            }
+
+            
+
+            if (NewUsername != "")
+            {
+                try
+                {
+                    bool UsernameChangeStatus = Database.ChangeUsername(Properties.Settings.Default.UserName, NewUsername);
+
+                    if (UsernameChangeStatus)
+                    {
+                        MessageBox.Show("Username changed successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                } catch ( Exception ex )
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            if (NewEmail != "")
+            {
+                try
+                {
+                    bool EmailChangeStatus = Database.ChangeEmail(Properties.Settings.Default.UserName, NewEmail);
+
+                    if (EmailChangeStatus)
+                    {
+                        MessageBox.Show("Email changed successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            if (NewPassword != "")
+            {
+                try
+                {
+                    bool PasswordChangeStatus = Database.ChangePassword(Properties.Settings.Default.UserName, NewPassword);
+
+                    if (PasswordChangeStatus)
+                    {
+                        MessageBox.Show("Password changed successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

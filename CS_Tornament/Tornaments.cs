@@ -13,6 +13,9 @@ namespace CS_Tornament
     public partial class Tornaments : Form
     {
 
+        CreateUser CreateUserForm = new CreateUser();
+        UserSettings UserSettingForm = new UserSettings();
+
         public Tornaments()
         {
             InitializeComponent();
@@ -60,9 +63,23 @@ namespace CS_Tornament
 
         private void UserSettingsButton_Click(object sender, EventArgs e)
         {
-            UserSettings UserSettingForm = new UserSettings();
-
             UserSettingForm.Show();
+        }
+
+        private void CreateUserButton_Click(object sender, EventArgs e)
+        { 
+            CreateUserForm.Show();
+
+        }
+
+        public void CloseUserSetting()
+        {
+            UserSettingForm.Close();
+        }
+
+        public void CloseUserCreation()
+        {
+            CreateUserForm.Close();
         }
     }
 }

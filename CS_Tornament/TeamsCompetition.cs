@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace CS_Tornament
 {
-    public partial class CreateUser : Form
+    public partial class TeamsForm : Form
     {
-        public CreateUser()
+        public TeamsForm()
         {
             InitializeComponent();
-        }
-
-        private void ReturnToSelectionButton_Click(object sender, EventArgs e)
-        {
-            new Tornaments().CloseUserCreation();
         }
     }
 }

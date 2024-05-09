@@ -162,6 +162,7 @@
             ReturnToSelectionButton.TabIndex = 12;
             ReturnToSelectionButton.Text = "Return To Selections";
             ReturnToSelectionButton.UseVisualStyleBackColor = true;
+            ReturnToSelectionButton.Click += ReturnToSelectionButton_Click;
             // 
             // CreateUser
             // 

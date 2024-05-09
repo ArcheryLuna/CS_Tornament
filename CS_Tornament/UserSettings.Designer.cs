@@ -125,6 +125,7 @@
             SubmitButton.TabIndex = 8;
             SubmitButton.Text = "Submit Changes";
             SubmitButton.UseVisualStyleBackColor = true;
+            SubmitButton.Click += SubmitButton_Click;
             // 
             // BackToSelection
             // 
@@ -134,7 +135,7 @@
             BackToSelection.TabIndex = 9;
             BackToSelection.Text = "Back To Selection";
             BackToSelection.UseVisualStyleBackColor = true;
-            BackToSelection.Click += this.BackToSelection_Click;
+            BackToSelection.Click += BackToSelection_Click;
             // 
             // pictureBox1
             // 

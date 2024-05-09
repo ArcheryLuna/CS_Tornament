@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using dotenv.net;
 using System.Windows.Forms.VisualStyles;
+using System.Diagnostics;
+
+using CS_Tornament.UserLogic;
+using CS_Tornament.Properties;
 
 namespace CS_Tornament.UserLogic
 {
@@ -111,5 +115,116 @@ namespace CS_Tornament.UserLogic
             }
         }
 
+        public static bool ChangeUsername(string username, string newUsername)
+        {
+            try
+            {
+                Connect();
+
+                string findUserQuery = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
+                MySqlCommand findUserCommand = new MySqlCommand(findUserQuery, Connection);
+                MySqlDataReader reader = findUserCommand.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    return false;
+                }
+
+                
+
+                string query = $"UPDATE Users SET userName = '{newUsername}' WHERE userName = '{username}' OR userEmail = '{username}'";
+                MySqlCommand command = new MySqlCommand(query, Connection);
+                command.ExecuteNonQuery();
+                
+                if (Properties.Settings.Default.UserName != string.Empty)
+                {
+                    Properties.Settings.Default.UserName = newUsername;
+                    Properties.Settings.Default.Save();
+                }
+                
+                return true;
+            }
+            catch ( MySqlException Ex )
+            {
+                Console.WriteLine("Error SQL: " + Ex.Message);
+                return false;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public static bool ChangeEmail ( string username, string newEmail )
+        {
+            try
+            {
+                Connect();
+
+                string findUserQuery = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
+                MySqlCommand findUserCommand = new MySqlCommand(findUserQuery, Connection);
+                MySqlDataReader reader = findUserCommand.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    return false;
+                }
+
+                string query = $"UPDATE Users SET userEmail = '{newEmail}' WHERE userName = '{username}' OR userEmail = '{username}'";
+                MySqlCommand command = new MySqlCommand(query, Connection);
+                command.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (MySqlException Ex)
+            {
+                Console.WriteLine("Error SQL: " + Ex.Message);
+                return false;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public static bool ChangePassword( string username, string newPassword )
+        {
+            try
+            {
+                Connect();
+
+                string findUserQuery = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
+                MySqlCommand findUserCommand = new MySqlCommand(findUserQuery, Connection);
+                MySqlDataReader reader = findUserCommand.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    return false;
+                }
+
+                string PasswordHash = Password.Hash(newPassword);
+
+                string query = $"UPDATE Users SET userPassword = '{PasswordHash}' WHERE userName = '{username}' OR userEmail = '{username}'";
+                MySqlCommand command = new MySqlCommand(query, Connection);
+                command.ExecuteNonQuery();
+
+                if ( Properties.Settings.Default.UserPassword != string.Empty )
+                {
+                    Properties.Settings.Default.UserPassword = PasswordHash;
+                    Properties.Settings.Default.Save();
+                }
+                
+                return true;
+            }
+            catch (MySqlException Ex)
+            {
+                Console.WriteLine("Error SQL: " + Ex.Message);
+                return false;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
     }
 }

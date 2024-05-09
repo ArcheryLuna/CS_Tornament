@@ -135,6 +135,7 @@
             CreateUserButton.TabIndex = 8;
             CreateUserButton.Text = "Add A User";
             CreateUserButton.UseVisualStyleBackColor = true;
+            CreateUserButton.Click += CreateUserButton_Click;
             // 
             // Tornaments
             // 

@@ -48,6 +48,7 @@
             IndividualsButton.TabIndex = 0;
             IndividualsButton.Text = "Individuals";
             IndividualsButton.UseVisualStyleBackColor = true;
+            IndividualsButton.Click += IndividualsButton_Click;
             // 
             // TeamsButton
             // 

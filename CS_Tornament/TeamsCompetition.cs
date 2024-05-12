@@ -35,6 +35,8 @@ namespace CS_Tornament
 
         List<TornEvents> CompetitionEvents = new List<TornEvents>();
 
+        int TotalPoints = 0;
+
         public TeamsForm()
         {
             InitializeComponent();
@@ -146,6 +148,7 @@ namespace CS_Tornament
 
             OverallPointsValueLabel.Text = "0";
             TotalPointsValueLabel.Text = $"{CompetitionEvents[0].PointAmount + CompetitionEvents[1].PointAmount + CompetitionEvents[2].PointAmount + CompetitionEvents[3].PointAmount + CompetitionEvents[4].PointAmount}";
+            TotalPoints = CompetitionEvents[0].PointAmount + CompetitionEvents[1].PointAmount + CompetitionEvents[2].PointAmount + CompetitionEvents[3].PointAmount + CompetitionEvents[4].PointAmount;
 
             CurrentEvent.Index = 0;
             CurrentEvent.IsActive = false;
@@ -1185,6 +1188,125 @@ namespace CS_Tornament
         private void OverallPointsButton_Click(object sender, EventArgs e)
         {
             OverallPointsValueLabel.Text = $"{int.Parse(TeamOnePointsLabel.Text) + int.Parse(TeamTwoPointsLabel.Text) + int.Parse(TeamThreePointsLabel.Text) + int.Parse(TeamFourPointsLabel.Text)}";
+        }
+
+        private void TeamOnePointsLabel_TextChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 25)
+            {
+                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(ZeroPercentColor);
+            }
+            if (int.Parse(TeamTwoPointsLabel.Text) > TotalPoints / 25 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 50)
+            {
+                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(TwentyFivePercentColor);
+            }
+            if (int.Parse(TeamOnePointsLabel.Text) > TotalPoints / 50 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 75)
+            {
+                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(FiftyPercentColor);
+            }
+            if (int.Parse(TeamOnePointsLabel.Text) > TotalPoints / 75 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 90)
+            {
+                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(SeventyFivePercentColor);
+            }
+            if (int.Parse(TeamOnePointsLabel.Text) > TotalPoints / 90 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints)
+            {
+                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(NightyPercentColor);
+            }
+            if (int.Parse(TeamOnePointsLabel.Text) == TotalPoints || int.Parse(TeamOnePointsLabel.Text) > TotalPoints)
+            {
+                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(OneHundredPercentColor);
+            }
+        }
+
+        private void TeamTwoPointsLabel_TextChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(TeamTwoPointsLabel.Text) < TotalPoints / 25)
+            {
+                TeamTwoPointsPanel.BackColor = ColorTranslator.FromHtml(ZeroPercentColor);
+            }
+            if (int.Parse(TeamTwoPointsLabel.Text) > TotalPoints / 25 && int.Parse(TeamTwoPointsLabel.Text) < TotalPoints / 50)
+            {
+                TeamTwoPointsPanel.BackColor = ColorTranslator.FromHtml(TwentyFivePercentColor);
+            }
+            if (int.Parse(TeamTwoPointsLabel.Text) > TotalPoints / 50 && int.Parse(TeamTwoPointsLabel.Text) < TotalPoints / 75)
+            {
+                TeamTwoPointsPanel.BackColor = ColorTranslator.FromHtml(FiftyPercentColor);
+            }
+            if (int.Parse(TeamTwoPointsLabel.Text) > TotalPoints / 75 && int.Parse(TeamTwoPointsLabel.Text) < TotalPoints / 90)
+            {
+                TeamTwoPointsPanel.BackColor = ColorTranslator.FromHtml(SeventyFivePercentColor);
+            }
+            if (int.Parse(TeamTwoPointsLabel.Text) > TotalPoints / 90 && int.Parse(TeamTwoPointsLabel.Text) < TotalPoints)
+            {
+                TeamTwoPointsPanel.BackColor = ColorTranslator.FromHtml(NightyPercentColor);
+            }
+            if (int.Parse(TeamTwoPointsLabel.Text) == TotalPoints || int.Parse(TeamTwoPointsLabel.Text) > TotalPoints)
+            {
+                TeamTwoPointsPanel.BackColor = ColorTranslator.FromHtml(OneHundredPercentColor);
+            }
+        }
+
+        private void TeamThreePointsLabel_TextChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(TeamThreePointsLabel.Text) < TotalPoints / 25)
+            {
+                TeamThreePointsPanel.BackColor = ColorTranslator.FromHtml(ZeroPercentColor);
+            }
+            if (int.Parse(TeamThreePointsLabel.Text) > TotalPoints / 25 && int.Parse(TeamThreePointsLabel.Text) < TotalPoints / 50)
+            {
+                TeamThreePointsPanel.BackColor = ColorTranslator.FromHtml(TwentyFivePercentColor);
+            }
+            if (int.Parse(TeamThreePointsLabel.Text) > TotalPoints / 50 && int.Parse(TeamThreePointsLabel.Text) < TotalPoints / 75)
+            {
+                TeamThreePointsPanel.BackColor = ColorTranslator.FromHtml(FiftyPercentColor);
+            }
+            if (int.Parse(TeamThreePointsLabel.Text) > TotalPoints / 75 && int.Parse(TeamThreePointsLabel.Text) < TotalPoints / 90)
+            {
+                TeamThreePointsPanel.BackColor = ColorTranslator.FromHtml(SeventyFivePercentColor);
+            }
+            if (int.Parse(TeamThreePointsLabel.Text) > TotalPoints / 90 && int.Parse(TeamThreePointsLabel.Text) < TotalPoints)
+            {
+                TeamThreePointsPanel.BackColor = ColorTranslator.FromHtml(NightyPercentColor);
+            }
+            if (int.Parse(TeamThreePointsLabel.Text) == TotalPoints || int.Parse(TeamThreePointsLabel.Text) > TotalPoints)
+            {
+                TeamThreePointsPanel.BackColor = ColorTranslator.FromHtml(OneHundredPercentColor);
+            }
+        }
+
+        private void TeamFourPointsLabel_TextChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(TeamFourPointsLabel.Text) < TotalPoints / 25)
+            {
+                TeamFourPointsPanel.BackColor = ColorTranslator.FromHtml(ZeroPercentColor);
+            }
+            if (int.Parse(TeamFourPointsLabel.Text) > TotalPoints / 25 && int.Parse(TeamFourPointsLabel.Text) < TotalPoints / 50)
+            {
+                TeamFourPointsPanel.BackColor = ColorTranslator.FromHtml(TwentyFivePercentColor);
+            }
+            if (int.Parse(TeamFourPointsLabel.Text) > TotalPoints / 50 && int.Parse(TeamFourPointsLabel.Text) < TotalPoints / 75)
+            {
+                TeamFourPointsPanel.BackColor = ColorTranslator.FromHtml(FiftyPercentColor);
+            }
+            if (int.Parse(TeamFourPointsLabel.Text) > TotalPoints / 75 && int.Parse(TeamFourPointsLabel.Text) < TotalPoints / 90)
+            {
+                TeamFourPointsPanel.BackColor = ColorTranslator.FromHtml(SeventyFivePercentColor);
+            }
+            if (int.Parse(TeamFourPointsLabel.Text) > TotalPoints / 90 && int.Parse(TeamFourPointsLabel.Text) < TotalPoints)
+            {
+                TeamFourPointsPanel.BackColor = ColorTranslator.FromHtml(NightyPercentColor);
+            }
+            if (int.Parse(TeamFourPointsLabel.Text) == TotalPoints || int.Parse(TeamFourPointsLabel.Text) > TotalPoints)
+            {
+                TeamFourPointsPanel.BackColor = ColorTranslator.FromHtml(OneHundredPercentColor);
+            }
+        }
+
+        private void ReturnToSelectionButton_Click(object sender, EventArgs e)
+        {
+            Tornaments tornaments = new Tornaments();
+            tornaments.Show();
+            this.Hide();
         }
     }
 

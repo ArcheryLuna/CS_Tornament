@@ -95,6 +95,7 @@
             TotalPointsValueLabel = new Label();
             TotalPointsTitleLabel = new Label();
             TeamThreePanel = new Panel();
+            ReturnToSelectionButton = new Button();
             TeamOnePanel.SuspendLayout();
             TeamOnePointsPanel.SuspendLayout();
             TeamFourPanel.SuspendLayout();
@@ -437,6 +438,7 @@
             TeamOnePointsLabel.Size = new Size(25, 30);
             TeamOnePointsLabel.TabIndex = 23;
             TeamOnePointsLabel.Text = "0";
+            TeamOnePointsLabel.TextChanged += TeamOnePointsLabel_TextChanged;
             // 
             // PointsTeamOneLabel
             // 
@@ -522,6 +524,7 @@
             TeamFourPointsLabel.Size = new Size(25, 30);
             TeamFourPointsLabel.TabIndex = 20;
             TeamFourPointsLabel.Text = "0";
+            TeamFourPointsLabel.TextChanged += TeamFourPointsLabel_TextChanged;
             // 
             // PointsTeamFourLabel
             // 
@@ -604,6 +607,7 @@
             TeamTwoPointsLabel.Size = new Size(25, 30);
             TeamTwoPointsLabel.TabIndex = 22;
             TeamTwoPointsLabel.Text = "0";
+            TeamTwoPointsLabel.TextChanged += TeamTwoPointsLabel_TextChanged;
             // 
             // PointsTeamTwoLabel
             // 
@@ -742,6 +746,7 @@
             TeamThreePointsLabel.Size = new Size(25, 30);
             TeamThreePointsLabel.TabIndex = 21;
             TeamThreePointsLabel.Text = "0";
+            TeamThreePointsLabel.TextChanged += TeamThreePointsLabel_TextChanged;
             // 
             // PointsTeamThreeLabel
             // 
@@ -756,7 +761,6 @@
             // EventPanel
             // 
             EventPanel.BackColor = Color.FromArgb(216, 180, 254);
-            EventPanel.Controls.Add(OverallPointsValueLabel);
             EventPanel.Controls.Add(EventOnePointsValueLabel);
             EventPanel.Controls.Add(EventTwoPointsValueLabel);
             EventPanel.Controls.Add(EventThreePointsValueLabel);
@@ -782,7 +786,7 @@
             OverallPointsValueLabel.AutoSize = true;
             OverallPointsValueLabel.BackColor = Color.FromArgb(196, 181, 253);
             OverallPointsValueLabel.Font = new Font("Segoe UI", 16F);
-            OverallPointsValueLabel.Location = new Point(302, 386);
+            OverallPointsValueLabel.Location = new Point(290, 33);
             OverallPointsValueLabel.Name = "OverallPointsValueLabel";
             OverallPointsValueLabel.Size = new Size(25, 30);
             OverallPointsValueLabel.TabIndex = 8;
@@ -846,6 +850,7 @@
             // OverallPointsPanel
             // 
             OverallPointsPanel.BackColor = Color.FromArgb(196, 181, 253);
+            OverallPointsPanel.Controls.Add(OverallPointsValueLabel);
             OverallPointsPanel.Controls.Add(OverallPointsTitleLabel);
             OverallPointsPanel.Location = new Point(0, 353);
             OverallPointsPanel.Name = "OverallPointsPanel";
@@ -907,11 +912,23 @@
             TeamThreePanel.Size = new Size(227, 447);
             TeamThreePanel.TabIndex = 12;
             // 
+            // ReturnToSelectionButton
+            // 
+            ReturnToSelectionButton.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            ReturnToSelectionButton.Location = new Point(1109, 14);
+            ReturnToSelectionButton.Name = "ReturnToSelectionButton";
+            ReturnToSelectionButton.Size = new Size(228, 45);
+            ReturnToSelectionButton.TabIndex = 8;
+            ReturnToSelectionButton.Text = "Return To Selection";
+            ReturnToSelectionButton.UseVisualStyleBackColor = true;
+            ReturnToSelectionButton.Click += ReturnToSelectionButton_Click;
+            // 
             // TeamsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1349, 653);
+            Controls.Add(ReturnToSelectionButton);
             Controls.Add(TitleLabel);
             Controls.Add(TeamOnePanel);
             Controls.Add(TeamTwoPanel);
@@ -1023,5 +1040,6 @@
         private Label TeamTwoPointsLabel;
         private Label TeamThreePointsLabel;
         private PictureBox pictureBox1;
+        private Button ReturnToSelectionButton;
     }
 }

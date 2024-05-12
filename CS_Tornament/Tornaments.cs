@@ -13,9 +13,10 @@ namespace CS_Tornament
     public partial class Tornaments : Form
     {
 
-        
+
 
         TeamsForm TeamsForm = new TeamsForm();
+        IndividualsCompetition IndividualsCompetitionForm = new IndividualsCompetition();
 
         public Tornaments()
         {
@@ -71,6 +72,12 @@ namespace CS_Tornament
         private void TeamsButton_Click(object sender, EventArgs e)
         {
             TeamsForm.Show();
+            this.Hide();
+        }
+
+        private void IndividualsButton_Click(object sender, EventArgs e)
+        {
+            IndividualsCompetitionForm.Show();
             this.Hide();
         }
     }

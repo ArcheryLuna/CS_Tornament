@@ -12,6 +12,7 @@ using CS_Tornament.UserLogic;
 using CS_Tornament.Properties;
 using CS_Tornament.types;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Data;
 
 namespace CS_Tornament.UserLogic
 {
@@ -355,6 +356,67 @@ namespace CS_Tornament.UserLogic
                 response.IsSuccess = true;
 
                 response.Data = EventsList;
+
+                return response;
+            }
+            catch (MySqlException Ex)
+            {
+                Console.WriteLine("Mysql error | Competitions : " + Ex.Message);
+                response.IsSuccess = false;
+                response.ErrorMessage = "Error connecting to the database";
+                return response;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public static ResponseWrapper<List<Player>> GetIndividualPlayers() {
+            var response = new ResponseWrapper<List<Player>>();
+            List<Player> ContestantsList = new List<Player>();
+
+            try {
+                Connect();
+
+                string ContestantsQuery = "SELECT * FROM `Players` WHERE PlayerIsIndividual = 1;";
+                MySqlCommand GetContestants = new MySqlCommand(ContestantsQuery, Connection);
+                MySqlDataReader ContestantsReader = GetContestants.ExecuteReader();
+
+                if (!ContestantsReader.HasRows)
+                {
+                    response.IsSuccess = false;
+                    response.ErrorMessage = "No contestants found";
+                    return response;
+                }
+
+                int i = 0;
+
+                while (ContestantsReader.Read())
+                {
+
+                    if (i > 20) {
+                        break;
+                    }
+
+                    Player Contestant = new Player
+                    {
+                        PlayerID = ContestantsReader.GetInt32(0),
+                        PlayerFirstName = ContestantsReader.GetString(1),
+                        PlayerLastName = ContestantsReader.GetString(2),
+                        PlayerIsIndividual = ContestantsReader.GetBoolean(3),
+                    };
+
+                    ContestantsList.Add(Contestant);
+
+                    i++;
+                }
+
+                ContestantsReader.Close();
+
+                response.IsSuccess = true;
+
+                response.Data = ContestantsList;
 
                 return response;
             }

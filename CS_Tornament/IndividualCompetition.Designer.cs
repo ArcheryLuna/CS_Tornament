@@ -34,7 +34,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1827, 827);
+            ClientSize = new Size(1583, 655);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "IndividualsCompetition";
             Text = "Individuals";
             ResumeLayout(false);

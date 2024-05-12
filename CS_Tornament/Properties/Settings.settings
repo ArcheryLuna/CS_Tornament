@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CS_Tornament.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UserPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SQL_Server" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">node1.colmena.co.uk</Value>
+    </Setting>
+    <Setting Name="SQL_User" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">u3_zGY7jF6RGM</Value>
+    </Setting>
+    <Setting Name="SQL_Password" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Zu.Z^BX2USyYObL.b+7db8^i</Value>
+    </Setting>
+    <Setting Name="SQL_Name" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">s3_unit-4-learning-aim-b-c</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

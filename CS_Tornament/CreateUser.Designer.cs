@@ -33,15 +33,15 @@
             UsernameInput = new TextBox();
             UserEmailInput = new TextBox();
             UserEmailLabel = new Label();
-            textBox1 = new TextBox();
+            PasswordInput = new TextBox();
             UserPasswordLabel = new Label();
             ShowPasswordButton = new Button();
             SubmitButton = new Button();
-            pictureBox1 = new PictureBox();
+            UserImage = new PictureBox();
             LogoutButton = new Button();
             ExitButton = new Button();
             ReturnToSelectionButton = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)UserImage).BeginInit();
             SuspendLayout();
             // 
             // TitleLabel
@@ -88,13 +88,15 @@
             UserEmailLabel.TabIndex = 3;
             UserEmailLabel.Text = "Email";
             // 
-            // textBox1
+            // PasswordInput
             // 
-            textBox1.Location = new Point(12, 204);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Password";
-            textBox1.Size = new Size(176, 23);
-            textBox1.TabIndex = 6;
+            PasswordInput.Location = new Point(12, 204);
+            PasswordInput.Name = "PasswordInput";
+            PasswordInput.PasswordChar = '*';
+            PasswordInput.PlaceholderText = "Password";
+            PasswordInput.Size = new Size(176, 23);
+            PasswordInput.TabIndex = 6;
+            PasswordInput.UseSystemPasswordChar = true;
             // 
             // UserPasswordLabel
             // 
@@ -113,6 +115,7 @@
             ShowPasswordButton.TabIndex = 7;
             ShowPasswordButton.Text = "👁️";
             ShowPasswordButton.UseVisualStyleBackColor = true;
+            ShowPasswordButton.Click += ShowPasswordButton_Click;
             // 
             // SubmitButton
             // 
@@ -122,17 +125,18 @@
             SubmitButton.TabIndex = 8;
             SubmitButton.Text = "Add User";
             SubmitButton.UseVisualStyleBackColor = true;
+            SubmitButton.Click += SubmitButton_Click;
             // 
-            // pictureBox1
+            // UserImage
             // 
-            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Image = Properties.Resources.user_solid;
-            pictureBox1.Location = new Point(237, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(156, 151);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 9;
-            pictureBox1.TabStop = false;
+            UserImage.BorderStyle = BorderStyle.FixedSingle;
+            UserImage.Image = Properties.Resources.user_solid;
+            UserImage.Location = new Point(237, 12);
+            UserImage.Name = "UserImage";
+            UserImage.Size = new Size(156, 151);
+            UserImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            UserImage.TabIndex = 9;
+            UserImage.TabStop = false;
             // 
             // LogoutButton
             // 
@@ -143,6 +147,7 @@
             LogoutButton.TabIndex = 10;
             LogoutButton.Text = "Logout";
             LogoutButton.UseVisualStyleBackColor = true;
+            LogoutButton.Click += LogoutButton_Click;
             // 
             // ExitButton
             // 
@@ -153,6 +158,7 @@
             ExitButton.TabIndex = 11;
             ExitButton.Text = "Exit";
             ExitButton.UseVisualStyleBackColor = true;
+            ExitButton.Click += ExitButton_Click;
             // 
             // ReturnToSelectionButton
             // 
@@ -172,19 +178,20 @@
             Controls.Add(ReturnToSelectionButton);
             Controls.Add(ExitButton);
             Controls.Add(LogoutButton);
-            Controls.Add(pictureBox1);
+            Controls.Add(UserImage);
             Controls.Add(SubmitButton);
             Controls.Add(ShowPasswordButton);
-            Controls.Add(textBox1);
+            Controls.Add(PasswordInput);
             Controls.Add(UserPasswordLabel);
             Controls.Add(UserEmailInput);
             Controls.Add(UserEmailLabel);
             Controls.Add(UsernameInput);
             Controls.Add(UserNameLabel);
             Controls.Add(TitleLabel);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "CreateUser";
             Text = "Create A User";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)UserImage).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -196,11 +203,11 @@
         private TextBox UsernameInput;
         private TextBox UserEmailInput;
         private Label UserEmailLabel;
-        private TextBox textBox1;
+        private TextBox PasswordInput;
         private Label UserPasswordLabel;
         private Button ShowPasswordButton;
         private Button SubmitButton;
-        private PictureBox pictureBox1;
+        private PictureBox UserImage;
         private Button LogoutButton;
         private Button ExitButton;
         private Button ReturnToSelectionButton;

@@ -13,8 +13,9 @@ namespace CS_Tornament
     public partial class Tornaments : Form
     {
 
-        CreateUser CreateUserForm = new CreateUser();
-        UserSettings UserSettingForm = new UserSettings();
+        
+
+        TeamsForm TeamsForm = new TeamsForm();
 
         public Tornaments()
         {
@@ -61,25 +62,16 @@ namespace CS_Tornament
             }
         }
 
-        private void UserSettingsButton_Click(object sender, EventArgs e)
-        {
-            UserSettingForm.Show();
-        }
-
         private void CreateUserButton_Click(object sender, EventArgs e)
-        { 
-            CreateUserForm.Show();
-
-        }
-
-        public void CloseUserSetting()
         {
-            UserSettingForm.Close();
+            CreateUser CreationUserForm = new CreateUser();
+            CreationUserForm.Show();
+            this.Hide();
         }
-
-        public void CloseUserCreation()
+        private void TeamsButton_Click(object sender, EventArgs e)
         {
-            CreateUserForm.Close();
+            TeamsForm.Show();
+            this.Hide();
         }
     }
 }

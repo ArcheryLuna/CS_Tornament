@@ -12,9 +12,14 @@ namespace CS_Tornament
 {
     public partial class IndividualsCompetition : Form
     {
+        bool IsEnabled = false;
+        string CurrentCompetition = "";
+
         public IndividualsCompetition()
         {
             InitializeComponent();
         }
+
+        
     }
 }

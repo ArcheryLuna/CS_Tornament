@@ -35,7 +35,6 @@
             UserNameLabel = new Label();
             pictureBox1 = new PictureBox();
             ExitLink = new LinkLabel();
-            UserSettingsButton = new Button();
             CreateUserButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -59,6 +58,7 @@
             TeamsButton.TabIndex = 1;
             TeamsButton.Text = "Teams";
             TeamsButton.UseVisualStyleBackColor = true;
+            TeamsButton.Click += TeamsButton_Click;
             // 
             // SelectComptitionLabel
             // 
@@ -115,23 +115,12 @@
             ExitLink.VisitedLinkColor = Color.FromArgb(192, 192, 255);
             ExitLink.LinkClicked += ExitLink_LinkClicked;
             // 
-            // UserSettingsButton
-            // 
-            UserSettingsButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            UserSettingsButton.Location = new Point(89, 268);
-            UserSettingsButton.Name = "UserSettingsButton";
-            UserSettingsButton.Size = new Size(300, 41);
-            UserSettingsButton.TabIndex = 7;
-            UserSettingsButton.Text = "User Settings";
-            UserSettingsButton.UseVisualStyleBackColor = true;
-            UserSettingsButton.Click += UserSettingsButton_Click;
-            // 
             // CreateUserButton
             // 
             CreateUserButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            CreateUserButton.Location = new Point(395, 268);
+            CreateUserButton.Location = new Point(89, 268);
             CreateUserButton.Name = "CreateUserButton";
-            CreateUserButton.Size = new Size(300, 41);
+            CreateUserButton.Size = new Size(606, 41);
             CreateUserButton.TabIndex = 8;
             CreateUserButton.Text = "Add A User";
             CreateUserButton.UseVisualStyleBackColor = true;
@@ -143,7 +132,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(CreateUserButton);
-            Controls.Add(UserSettingsButton);
             Controls.Add(ExitLink);
             Controls.Add(pictureBox1);
             Controls.Add(UserNameLabel);
@@ -169,7 +157,6 @@
         private Label UserNameLabel;
         private PictureBox pictureBox1;
         private LinkLabel ExitLink;
-        private Button UserSettingsButton;
         private Button CreateUserButton;
     }
 }

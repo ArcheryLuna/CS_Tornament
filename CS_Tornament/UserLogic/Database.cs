@@ -10,6 +10,8 @@ using System.Diagnostics;
 
 using CS_Tornament.UserLogic;
 using CS_Tornament.Properties;
+using CS_Tornament.types;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CS_Tornament.UserLogic
 {
@@ -27,8 +29,11 @@ namespace CS_Tornament.UserLogic
             try {
                 // DotEnv.Load(options: new DotEnvOptions(probeForEnv: true, probeLevelsToSearch: 2));
                 // var EnvironmentVariables = DotEnv.Read();
-
-                Connection.Open();
+                if ( Connection.State != System.Data.ConnectionState.Open)
+                {
+                    Connection.Open();
+                }
+                
             }
             catch ( MySqlException e ) {
                 Console.WriteLine("Error SQL: " + e.Message);
@@ -54,12 +59,67 @@ namespace CS_Tornament.UserLogic
                     return false;
                 }
 
+                Disconnect();
+
                 return true;
             }
             catch (MySqlException e)
             {
                 Console.WriteLine("Error SQL: " + e.Message);
                 return false;
+            }
+        }
+
+        public static ResponseWrapper<User> CreateUser(string username, string email, string password)
+        {
+            var response = new ResponseWrapper<User>();
+
+            try
+            {
+                Connect();
+
+                string query = $"INSERT INTO Users (userName, userEmail, userPassword) VALUES ('{username}', '{email}', '{password}')";
+                MySqlCommand command = new MySqlCommand(query, Connection);
+                command.ExecuteNonQuery();
+
+                string findUserQuery = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{email}'";
+                MySqlCommand findUserCommand = new MySqlCommand(findUserQuery, Connection);
+                MySqlDataReader reader = findUserCommand.ExecuteReader();
+
+                if (!reader.HasRows)
+                {
+                    response.IsSuccess = false;
+                    response.ErrorMessage = "User failed to create";
+                    return response;
+                }
+
+                int UserID = 0;
+
+                while (reader.Read())
+                {
+                    UserID = reader.GetInt32(0);
+                }
+
+                reader.Close();
+
+                response.IsSuccess = true;
+
+                response.Data = new User
+                {
+                    UserID = UserID,
+                    UserName = username,
+                    UserEmail = email,
+                    UserPassword = password,
+                };
+
+                return response;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error SQL: " + e.Message);
+                response.IsSuccess = false;
+                response.ErrorMessage = e.Message;
+                return response;
             }
             finally
             {
@@ -102,6 +162,8 @@ namespace CS_Tornament.UserLogic
                     return new string[] { "User not found" };
                 }
 
+                reader.Close();
+
                 return new string[] {userName, userEmail, userPassword };
             }
             catch (MySqlException e)
@@ -115,39 +177,142 @@ namespace CS_Tornament.UserLogic
             }
         }
 
-        public static bool ChangeUsername(string username, string newUsername)
+        // Competitions
+
+       public static ResponseWrapper<List<Player>> GetPlayers(int[] PlayerIDs ) {
+            var response = new ResponseWrapper<List<Player>>();
+            List<Player> PlayersList = new List<Player>();
+
+            try {
+                Connect();
+
+                foreach (int PlayerID in PlayerIDs)
+                {
+                    string PlayerQuery = $"SELECT * FROM `Players` WHERE PlayerID = {PlayerID};";
+                    MySqlCommand GetPlayers = new MySqlCommand(PlayerQuery, Connection);
+                    MySqlDataReader PlayersReader = GetPlayers.ExecuteReader();
+
+                    if (!PlayersReader.HasRows)
+                    {
+                        response.IsSuccess = false;
+                        response.ErrorMessage = "No players found";
+                        return response;
+                    }
+
+                    while (PlayersReader.Read())
+                    {
+                        Player Player = new Player
+                        {
+                            PlayerID = PlayersReader.GetInt32(0),
+                            PlayerFirstName = PlayersReader.GetString(1),
+                            PlayerLastName = PlayersReader.GetString(2),
+                            PlayerIsIndividual = PlayersReader.GetBoolean(3),
+                        };
+
+                        PlayersList.Add(Player);
+                    }
+
+                    PlayersReader.Close();
+                }
+
+                response.IsSuccess = true;
+
+                response.Data = PlayersList;
+
+                return response;
+
+            }
+            catch (MySqlException Ex)
+            {
+                Console.WriteLine("Mysql error | Competitions : " + Ex.Message);
+                response.IsSuccess = false;
+                response.ErrorMessage = Ex.Message;
+                return response;
+            }
+            finally
+            {
+                Disconnect();
+            }
+
+       }  
+
+        public static ResponseWrapper<List<Teams>> GetAllTeams(string Username)
         {
+            var response = new ResponseWrapper<List<Teams>>();
+            List<Teams> TeamsList = new List<Teams>();
+            
             try
             {
                 Connect();
 
-                string findUserQuery = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
-                MySqlCommand findUserCommand = new MySqlCommand(findUserQuery, Connection);
-                MySqlDataReader reader = findUserCommand.ExecuteReader();
-
-                if (!reader.HasRows)
+                string TeamQuery = "SELECT * FROM `Teams`;";
+                MySqlCommand GetTeams = new MySqlCommand(TeamQuery, Connection);
+                MySqlDataReader TeamsReader = GetTeams.ExecuteReader();
+                if (!TeamsReader.HasRows)
                 {
-                    return false;
+                    response.IsSuccess = false;
+                    response.ErrorMessage = "No teams found";
+                    return response;
                 }
 
-                
+                List<RawTeams> RawTeamsList = new List<RawTeams>();
 
-                string query = $"UPDATE Users SET userName = '{newUsername}' WHERE userName = '{username}' OR userEmail = '{username}'";
-                MySqlCommand command = new MySqlCommand(query, Connection);
-                command.ExecuteNonQuery();
-                
-                if (Properties.Settings.Default.UserName != string.Empty)
+                while (TeamsReader.Read())
                 {
-                    Properties.Settings.Default.UserName = newUsername;
-                    Properties.Settings.Default.Save();
+                    RawTeams Team = new RawTeams
+                    {
+                        TeamID = TeamsReader.GetInt32(0),
+                        PlayerOne = TeamsReader.GetInt32(1),
+                        PlayerTwo = TeamsReader.GetInt32(2),
+                        PlayerThree = TeamsReader.GetInt32(3),
+                        PlayerFour = TeamsReader.GetInt32(4),
+                        PlayerFive = TeamsReader.GetInt32(5),
+                        TeamName = TeamsReader.GetString(6),
+                    };
+
+                    RawTeamsList.Add(Team);
                 }
-                
-                return true;
+
+                TeamsReader.Close();
+
+                foreach (RawTeams Team in RawTeamsList)
+                {
+                    List<Player> Players = new List<Player>();
+
+                    int[] PlayerIDs = new int[] { Team.PlayerOne, Team.PlayerTwo, Team.PlayerThree, Team.PlayerFour, Team.PlayerFive };
+                    var PlayersResponse = GetPlayers(PlayerIDs);
+
+                    if (PlayersResponse.IsSuccess)
+                    {
+                        Players = PlayersResponse.Data;
+                    }
+
+                    Teams TeamObject = new Teams
+                    {
+                        TeamId = Team.TeamID,
+                        PlayerOne = Players[0],
+                        PlayerTwo = Players[1],
+                        PlayerThree = Players[2],
+                        PlayerFour = Players[3],
+                        PlayerFive = Players[4],
+                        TeamName = Team.TeamName,
+                    };
+
+                    TeamsList.Add(TeamObject);
+                }
+
+                response.IsSuccess = true;
+
+                response.Data = TeamsList;
+
+                return response;
             }
-            catch ( MySqlException Ex )
+            catch (MySqlException Ex)
             {
-                Console.WriteLine("Error SQL: " + Ex.Message);
-                return false;
+                Console.WriteLine("Mysql error | Competitions : " + Ex.Message);
+                response.IsSuccess = false;
+                response.ErrorMessage = Ex.Message;
+                return response;
             }
             finally
             {
@@ -155,71 +320,50 @@ namespace CS_Tornament.UserLogic
             }
         }
 
-        public static bool ChangeEmail ( string username, string newEmail )
+        public static ResponseWrapper<List<TornEvents>> GetEvents(string Username)
         {
+            var response = new ResponseWrapper<List<TornEvents>>();
+            List<TornEvents> EventsList = new List<TornEvents>();
+
             try
             {
                 Connect();
 
-                string findUserQuery = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
-                MySqlCommand findUserCommand = new MySqlCommand(findUserQuery, Connection);
-                MySqlDataReader reader = findUserCommand.ExecuteReader();
+                string EventQuery = "SELECT * FROM `TournamentEvents`";
+                MySqlCommand GetEvents = new MySqlCommand(EventQuery, Connection);
+                MySqlDataReader EventsReader = GetEvents.ExecuteReader();
 
-                if (!reader.HasRows)
+                if (!EventsReader.HasRows)
                 {
-                    return false;
+                    response.IsSuccess = false;
+                    response.ErrorMessage = "No events found";
+                    return response;
                 }
 
-                string query = $"UPDATE Users SET userEmail = '{newEmail}' WHERE userName = '{username}' OR userEmail = '{username}'";
-                MySqlCommand command = new MySqlCommand(query, Connection);
-                command.ExecuteNonQuery();
+                while (EventsReader.Read())
+                {
+                    TornEvents Event = new TornEvents
+                    {
+                        EventID = EventsReader.GetInt32(0),
+                        EventName = EventsReader.GetString(1),
+                        PointAmount = EventsReader.GetInt32(2),
+                    };
 
-                return true;
+                    EventsList.Add(Event);
+                }
+
+                response.IsSuccess = true;
+
+                response.Data = EventsList;
+
+                return response;
             }
             catch (MySqlException Ex)
             {
-                Console.WriteLine("Error SQL: " + Ex.Message);
-                return false;
-            }
-            finally
-            {
-                Disconnect();
-            }
-        }
-
-        public static bool ChangePassword( string username, string newPassword )
-        {
-            try
-            {
-                Connect();
-
-                string findUserQuery = $"SELECT * FROM Users WHERE userName = '{username}' OR userEmail = '{username}'";
-                MySqlCommand findUserCommand = new MySqlCommand(findUserQuery, Connection);
-                MySqlDataReader reader = findUserCommand.ExecuteReader();
-
-                if (!reader.HasRows)
-                {
-                    return false;
-                }
-
-                string PasswordHash = Password.Hash(newPassword);
-
-                string query = $"UPDATE Users SET userPassword = '{PasswordHash}' WHERE userName = '{username}' OR userEmail = '{username}'";
-                MySqlCommand command = new MySqlCommand(query, Connection);
-                command.ExecuteNonQuery();
-
-                if ( Properties.Settings.Default.UserPassword != string.Empty )
-                {
-                    Properties.Settings.Default.UserPassword = PasswordHash;
-                    Properties.Settings.Default.Save();
-                }
-                
-                return true;
-            }
-            catch (MySqlException Ex)
-            {
-                Console.WriteLine("Error SQL: " + Ex.Message);
-                return false;
+                Console.WriteLine("Mysql error | Competitions : " + Ex.Message);
+                response.IsSuccess = false;
+                response.ErrorMessage = "Error connecting to the database";
+                return response;
             }
             finally
             {

@@ -1190,33 +1190,7 @@ namespace CS_Tornament
             OverallPointsValueLabel.Text = $"{int.Parse(TeamOnePointsLabel.Text) + int.Parse(TeamTwoPointsLabel.Text) + int.Parse(TeamThreePointsLabel.Text) + int.Parse(TeamFourPointsLabel.Text)}";
         }
 
-        private void TeamOnePointsLabel_TextChanged(object sender, EventArgs e)
-        {
-            if (int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 25)
-            {
-                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(ZeroPercentColor);
-            }
-            if (int.Parse(TeamTwoPointsLabel.Text) > TotalPoints / 25 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 50)
-            {
-                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(TwentyFivePercentColor);
-            }
-            if (int.Parse(TeamOnePointsLabel.Text) > TotalPoints / 50 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 75)
-            {
-                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(FiftyPercentColor);
-            }
-            if (int.Parse(TeamOnePointsLabel.Text) > TotalPoints / 75 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints / 90)
-            {
-                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(SeventyFivePercentColor);
-            }
-            if (int.Parse(TeamOnePointsLabel.Text) > TotalPoints / 90 && int.Parse(TeamOnePointsLabel.Text) < TotalPoints)
-            {
-                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(NightyPercentColor);
-            }
-            if (int.Parse(TeamOnePointsLabel.Text) == TotalPoints || int.Parse(TeamOnePointsLabel.Text) > TotalPoints)
-            {
-                TeamOnePointsPanel.BackColor = ColorTranslator.FromHtml(OneHundredPercentColor);
-            }
-        }
+        
 
         private void TeamTwoPointsLabel_TextChanged(object sender, EventArgs e)
         {

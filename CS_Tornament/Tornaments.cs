@@ -15,12 +15,14 @@ namespace CS_Tornament
 
 
 
-        TeamsForm TeamsForm = new TeamsForm();
-        IndividualsCompetition IndividualsCompetitionForm = new IndividualsCompetition();
+        
+        
 
         public Tornaments()
         {
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void LogoutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -71,12 +73,14 @@ namespace CS_Tornament
         }
         private void TeamsButton_Click(object sender, EventArgs e)
         {
+            TeamsForm TeamsForm = new TeamsForm();
             TeamsForm.Show();
             this.Hide();
         }
 
         private void IndividualsButton_Click(object sender, EventArgs e)
         {
+            IndividualsCompetition IndividualsCompetitionForm = new IndividualsCompetition();
             IndividualsCompetitionForm.Show();
             this.Hide();
         }

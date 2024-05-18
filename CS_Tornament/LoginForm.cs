@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using System.Reflection;
 using CS_Tornament.UserLogic;
+using System;
+using System.Diagnostics;
+using System.Windows.Forms.Design;
+using System.IO.Enumeration;
 
 namespace CS_Tornament
 {
@@ -17,7 +21,7 @@ namespace CS_Tornament
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            
+
         }
 
         private void ResetSubmit_Click(object sender, EventArgs e)
@@ -75,11 +79,12 @@ namespace CS_Tornament
                 if (RememberMe)
                 {
                     Properties.Settings.Default.UserName = User[0];
-                    Properties.Settings.Default.UserPassword = User[2]; 
-                    Properties.Settings.Default.Save();   
+                    Properties.Settings.Default.UserPassword = User[2];
+                    Properties.Settings.Default.Save();
                     TornamentForm.Show();
                     this.Hide();
-                } else
+                }
+                else
                 {
                     Properties.Settings.Default.UserName = User[0];
                     Properties.Settings.Default.UserPassword = "";
@@ -87,10 +92,10 @@ namespace CS_Tornament
                     TornamentForm.Show();
                     this.Hide();
                 }
-                
-                
 
-                
+
+
+
             }
             catch (Exception ex)
             {
@@ -135,6 +140,14 @@ namespace CS_Tornament
         private void RememberMeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             RememberMe = !RememberMe;
+        }
+
+        private void OnScreenKeyboard_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo{
+                FileName = "osk.exe",
+                UseShellExecute = true
+            });
         }
     }
 }

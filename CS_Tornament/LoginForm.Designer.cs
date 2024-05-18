@@ -38,6 +38,7 @@
             RememberMeCheckBox = new CheckBox();
             ResetLink = new LinkLabel();
             ExitLink = new LinkLabel();
+            OnScreenKeyboard = new Button();
             SuspendLayout();
             // 
             // LoginFormTitle
@@ -147,11 +148,22 @@
             ExitLink.VisitedLinkColor = Color.FromArgb(192, 192, 255);
             ExitLink.Click += ExitSubmit_Click;
             // 
+            // OnScreenKeyboard
+            // 
+            OnScreenKeyboard.Location = new Point(9, 318);
+            OnScreenKeyboard.Name = "OnScreenKeyboard";
+            OnScreenKeyboard.Size = new Size(250, 29);
+            OnScreenKeyboard.TabIndex = 13;
+            OnScreenKeyboard.Text = "Open Keyboard";
+            OnScreenKeyboard.UseVisualStyleBackColor = true;
+            OnScreenKeyboard.Click += OnScreenKeyboard_Click;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(278, 359);
+            Controls.Add(OnScreenKeyboard);
             Controls.Add(ExitLink);
             Controls.Add(ResetLink);
             Controls.Add(RememberMeCheckBox);
@@ -181,5 +193,6 @@
         private CheckBox RememberMeCheckBox;
         private LinkLabel ResetLink;
         private LinkLabel ExitLink;
+        private Button OnScreenKeyboard;
     }
 }

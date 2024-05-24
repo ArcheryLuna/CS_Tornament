@@ -1224,8 +1224,5 @@
         private CheckBox PlayerTwentyName;
         
         private Button BackToSelectionButton;
-        private LinkLabel linkLabel1;
-        private LinkLabel linkLabel2;
-        private Label label32;
     }
 }

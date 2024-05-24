@@ -438,7 +438,6 @@
             TeamOnePointsLabel.Size = new Size(25, 30);
             TeamOnePointsLabel.TabIndex = 23;
             TeamOnePointsLabel.Text = "0";
-            TeamOnePointsLabel.TextChanged += TeamOnePointsLabel_TextChanged;
             // 
             // PointsTeamOneLabel
             // 

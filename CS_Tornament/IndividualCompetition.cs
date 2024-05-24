@@ -17,7 +17,6 @@ namespace CS_Tornament
         bool IsEnabled = false;
         bool IsResetting = false;
         CurrentEventType CurrentEvent = new CurrentEventType();
-        string CurrentCompetition = "";
         List<TornEvents> TornamentEvents = new List<TornEvents>();
 
         List<Player> IndivividualPlayers = new List<Player>();

@@ -9,7 +9,7 @@ namespace CS_Tornament.types
     internal class TornEvents
     {
         public int EventID { get; set; }
-        public required string EventName { get; set; }
+        public string EventName { get; set; }
         public int PointAmount { get; set; }
     }
 }

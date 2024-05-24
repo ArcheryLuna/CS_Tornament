@@ -9,8 +9,8 @@ namespace CS_Tornament.types
     internal class Player
     {
         public int PlayerID { get; set; }
-        public required string PlayerFirstName { get; set; }
-        public required string PlayerLastName { get; set; }
+        public string PlayerFirstName { get; set; }
+        public string PlayerLastName { get; set; }
         public bool PlayerIsIndividual { get; set; }
 
     }

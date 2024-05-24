@@ -14,7 +14,7 @@ namespace CS_Tornament.types
         public int PlayerThree { get; set; }
         public int PlayerFour { get; set; }
         public int PlayerFive { get; set; }
-        public required string TeamName { get; set; }
+        public string TeamName { get; set; }
 
     }
 }
